@@ -14,9 +14,10 @@ def cli():
     pass
 
 
-from . import extract, align, measure, shape
+from . import extract, align, measure, extract_ordered, shape
 
 cli.add_command(extract.extract)
 cli.add_command(align.align)
 cli.add_command(measure.measure)
+cli.add_command(extract_ordered.extract_ordered)
 cli.add_command(shape.shape)

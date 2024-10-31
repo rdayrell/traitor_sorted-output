@@ -16,6 +16,42 @@ from scipy.spatial.distance import cdist, euclidean
 
 from typing import Iterable, Tuple, Optional, List
 
+def sort_contours(contours: List[np.ndarray], tolerance: int = 50) -> List[np.ndarray]:
+    """
+    Sort contours bottom to top, left to right.
+    
+    Parameters:
+    - contours: List of contours (as numpy arrays) to sort.
+    - tolerance: Tolerance for grouping contours into rows based on their y-centers.
+    
+    Returns:
+    - Sorted list of contours.
+    """
+    # Step 1: Convert contours to bounding boxes and calculate centroids
+    bounding_boxes = [get_bbox(c) for c in contours]
+    centroids = [(contour, (bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2) 
+                 for contour, bbox in zip(contours, bounding_boxes)]
+    
+    # Step 2: Sort by y-center to group into rows
+    centroids = sorted(centroids, key=lambda c: c[2])
+    
+    # Step 3: Group bounding boxes by rows
+    rows = []
+    current_row = [centroids[0]]
+    for i in range(1, len(centroids)):
+        _, _, y_center = centroids[i]
+        _, _, prev_y_center = centroids[i - 1]
+        if abs(y_center - prev_y_center) <= tolerance:
+            current_row.append(centroids[i])
+        else:
+            rows.append(sorted(current_row, key=lambda c: c[1]))  # Sort row by x-center
+            current_row = [centroids[i]]
+    rows.append(sorted(current_row, key=lambda c: c[1]))  # Add the last row
+
+    # Step 4: Flatten rows in bottom-to-top order to get sorted contours
+    sorted_contours = [contour for row in reversed(rows) for contour, _, _ in row]
+    
+    return sorted_contours
 
 def segment_image(
     image: np.ndarray,

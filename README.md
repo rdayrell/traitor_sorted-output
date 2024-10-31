@@ -1,18 +1,19 @@
-[![DOI](https://zenodo.org/badge/538830664.svg)](https://zenodo.org/badge/latestdoi/538830664)
-
-
-# traitor
+# traitor version 0.1.1
 
 A tool to extract morphological traits from images.
 
+This new version adds a command that provides an ordered output for seed and object segmentation in Traitor. Users can set a tolerance level to handle horizontal misalignments, which is useful for grid-based analyses where tracking each object is important. 
+
+I have not widely tested this, so please make sure to check output carefully.
+
 ## Publication
-Traitor is published in Methods in Ecology and Evolution: [Automated extraction of seed morphological traits from images](https://doi.org/10.1111/2041-210X.14127)
+The original version of traitor is published in Methods in Ecology and Evolution: [Automated extraction of seed morphological traits from images](https://doi.org/10.1111/2041-210X.14127)
 
 ## Installation
 
 ### Requirements
 
-Python versions 3.7 to 3.11.
+Python versions 3.8 to 3.11.
 For new users, we recommend Python installation via Conda, an open-source package management system for Python and R, which also includes facilities for environment management. See the official installation guide for further information.
 
 To install Conda (miniconda), visit:
@@ -36,7 +37,7 @@ conda install git pip
 Run the following command in your CLI to install Traitor:
 
 ```bash
-pip install git+https://github.com/TankredO/traitor
+pip install git+https://github.com/rdayrell/traitor_sorted-output
 ```
 
 Test your installation:
@@ -70,6 +71,61 @@ b) Obtain information on the command extract (same applies to align and measure)
 ```bash
 traitor extract -h
 ```
+
+## From new version:
+### 1. Extract Ordered
+
+```
+Detect objects and extract their contours/masks from images. Follows a bottom- to-top, left-to-right ordering for extracted contours.
+
+Required options:
+  -i, --image_dir DIRECTORY    Directory containing images in PNG format.
+                               [required]
+  -o, --out_dir DIRECTORY      A directory with the specified name will be
+                               created if it does not exist. By default the
+                               directory will be created in the current working
+                               directory
+                               (/Users/tankred/python_projects/traitor).
+                               [required]
+
+Output options:
+  -m, --masks_output           Generate mask output for every detected object.
+  -b, --bbox_output            Extract bounding boxes for every detected object.
+  -u, --contour_output         Generate additional output image with contours to
+                               easily check the quality of image segmentation.
+  -p, --padding INTEGER        Padding around objects for mask and bounding box
+                               outputs.  [default: 5]
+  --rm_bg                      Set background pixel in bbox output to 0 (black).
+  --tolerance INTEGER          Tolerance for grouping contours into rows based
+                               on y-centers (for ordering).
+
+Other options:
+  -c, --background_color TEXT  Background color. Can be passed as comma-
+                               separated list of RGB values (e.g., "12, 52,
+                               128") or alternatively as hex color code (e.g.,
+                               "#04245f"). By default the most common color
+                               range will be assumed to be the background color.
+  -t, --n_proc INTEGER         Number of parallel processes to run. Should not
+                               be set higher than the number of CPU cores.
+  --adaptive                   EXPERIMENTAL: use adaptive segmentation algorithm
+  -h, --help                   Show this message and exit.
+```
+
+#### Examples (enter code in your CLI):
+
+a) Run code with minimal requirements. Only a mask with detected objects will be created. Tolerance for grouping contours into rows based on y-centers (for ordering) defaults to 50 pixels:
+
+```bash
+traitor extract_ordered -i "images" -o "images_extracted"
+```
+
+b) Run command with all output options (see description of extract below). In addition, specify the tolerance in pixels:
+
+```bash
+traitor extract -i "images" -o "images_extracted" -u -b --rm_bg -p 10 --tolerance 30
+```
+
+## From previous version:
 
 ### 1. Extract
 
