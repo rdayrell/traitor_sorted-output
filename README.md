@@ -13,7 +13,8 @@ The original version of traitor is published in Methods in Ecology and Evolution
 
 ### Requirements
 
-Python versions 3.8 to 3.11.
+**Python versions from 3.8 to <ins>below</ins> 3.11** (i.e. up to any 3.10 versions). If you are having problems installing *Traitor*, this is the most likely cause.
+
 For new users, we recommend Python installation via Conda, an open-source package management system for Python and R, which also includes facilities for environment management. See the official installation guide for further information.
 
 To install Conda (miniconda), visit:
