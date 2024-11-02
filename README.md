@@ -2,7 +2,7 @@
 
 A tool to extract morphological traits from images.
 
-This experimental version introduces a command that generates ordered output for seed and object segmentation in *traitor*. Users can set a tolerance level to adjust for minor horizontal misalignments, making it particularly useful for analyses where tracking each object in sequence is essential. To ensure accurate ordering, objects within the same row should still be positioned closer to each other than to objects in adjacent rows.
+This experimental version introduces a command that generates ordered output for seed and object segmentation in *traitor*. Users can set a tolerance level to adjust for minor vertical misalignments, making it particularly useful for analyses where tracking each object in sequence is essential. To ensure accurate ordering, objects within the same row should still be positioned closer to each other than to objects in adjacent rows.
 
 I have not widely tested this, so please make sure to check output carefully.
 
