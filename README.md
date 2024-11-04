@@ -2,12 +2,15 @@
 
 A tool to extract morphological traits from images.
 
-This experimental version introduces a command that generates ordered output for seed and object segmentation in *traitor*. Users can set a tolerance level to adjust for minor vertical misalignments, making it particularly useful for analyses where tracking each object in sequence is essential. To ensure accurate ordering, objects within the same row should still be positioned closer to each other than to objects in adjacent rows.
+This experimental version introduces a command that generates ordered output for seed and object segmentation in *Traitor*, making it particularly useful for analyses where tracking each object in sequence is essential.
+
+More info:
+In the original version, *Traitor* already follows a sequential order for segmentation, but slight vertical misalignments can lead to unexpected extraction order. This new version introduces the extract_ordered command, allowing you to set a pixel tolerance to group objects in the same row. This results in a more predictable output from bottom to top and left to right. To ensure accurate ordering, objects within the same row should still be positioned closer to each other (vertically) than to objects in adjacent rows.
 
 I have not widely tested this, so please make sure to check output carefully.
 
 ## Publication
-The original version of traitor is published in Methods in Ecology and Evolution: [Automated extraction of seed morphological traits from images](https://doi.org/10.1111/2041-210X.14127)
+The original version of traitor is published in Methods in Ecology and Evolution (https://doi.org/10.1111/2041-210X.14127) and available here: https://github.com/TankredO/traitor.git.
 
 ## Installation
 
